@@ -1,7 +1,7 @@
 package com.starbank.star.service;
 
 import com.starbank.star.entity.Rules;
-import com.starbank.star.rules.RulesRepository;
+import com.starbank.star.rules.rulesRepository.RulesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

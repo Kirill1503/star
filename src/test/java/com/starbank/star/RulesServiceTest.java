@@ -1,7 +1,7 @@
 package com.starbank.star;
 
 import com.starbank.star.entity.Rules;
-import com.starbank.star.rules.RulesRepository;
+import com.starbank.star.rules.rulesRepository.RulesRepository;
 import com.starbank.star.service.RulesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

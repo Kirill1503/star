@@ -1,27 +1,34 @@
 package com.starbank.star.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.UUID;
 
 @Entity
 public class RuleStats {
 
     @Id
-    private String ruleId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID ruleId;
     private int count;
 
-    public RuleStats() {}
-
-    public RuleStats(String ruleId, int count) {
+    public RuleStats(UUID ruleId, int count) {
         this.ruleId = ruleId;
         this.count = count;
     }
 
-    public String getRuleId() {
+    public RuleStats() {
+
+    }
+
+    public UUID getRuleId() {
         return ruleId;
     }
 
-    public void setRuleId(String ruleId) {
+    public void setRuleId(UUID ruleId) {
         this.ruleId = ruleId;
     }
 

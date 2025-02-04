@@ -1,17 +1,24 @@
 package com.starbank.star.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embeddable;
-import java.util.List;
+import jakarta.persistence.*;
 
-@Embeddable
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "rule_queries")
 public class RuleQuery {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(name = "query_type", nullable = false)
     private String queryType;
 
     @ElementCollection
+    @CollectionTable(name = "rule_query_arguments", joinColumns = @JoinColumn(name = "rule_query_id"))
+    @Column(name = "argument", nullable = false)
     private List<String> arguments;
 
     @Column(name = "negate", nullable = false)

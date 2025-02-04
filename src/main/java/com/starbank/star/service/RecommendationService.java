@@ -55,7 +55,7 @@ public class RecommendationService {
                         rule.getProductId(),
                         rule.getProductText()
                 ));
-                updateRuleStats(rule.getProductName());
+                updateRuleStats(rule.getId());
                 logger.debug("Added dynamic recommendation: {} for user: {}", rule.getProductName(), userId);
             }
         }
@@ -64,8 +64,8 @@ public class RecommendationService {
         return recommendations;
     }
 
-    private void updateRuleStats(String ruleId) {
-        RuleStats stats = ruleStatsRepository.findById(ruleId).orElse(new RuleStats(ruleId, 0));
+    private void updateRuleStats(UUID ruleId) {
+        RuleStats stats = ruleStatsRepository.findByRuleId(ruleId);
         stats.increment();
         ruleStatsRepository.save(stats);
     }

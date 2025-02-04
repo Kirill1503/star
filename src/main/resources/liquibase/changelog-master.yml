@@ -1,6 +1,5 @@
 databaseChangeLog:
   - include:
-      file: liquibase/scripts/transactions.sql
-
+        file: liquibase/scripts/rules.sql
   - include:
-      file: liquibase/scripts/rules.sql
+      file: liquibase/scripts/transactions.sql

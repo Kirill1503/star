@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,8 +25,9 @@ import javax.sql.DataSource;
 )
 public class SecondaryDatabaseConfig {
 
+    @Primary
     @Bean(name = "secondDataSource")
-    @ConfigurationProperties(prefix = "spring.second-datasource")
+    @ConfigurationProperties(prefix = "spring.second-datasource.hikari")
     public DataSource secondDataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -33,17 +35,17 @@ public class SecondaryDatabaseConfig {
     @Bean(name = "secondEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean secondEntityManagerFactory(
             EntityManagerFactoryBuilder builder,
-            @Qualifier("secondDataSource") DataSource dataSource) {
+            @Qualifier("secondDataSource") DataSource secondDataSource) {
         return builder
-                .dataSource(dataSource)
+                .dataSource(secondDataSource)
                 .packages("com.starbank.star.entity")
-                .persistenceUnit("second")
+                .persistenceUnit("secondDb")
                 .build();
     }
 
     @Bean(name = "secondTransactionManager")
     public PlatformTransactionManager secondTransactionManager(
-            @Qualifier("secondEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+            @Qualifier("secondEntityManagerFactory") EntityManagerFactory secondEntityManagerFactory) {
+        return new JpaTransactionManager(secondEntityManagerFactory);
     }
 }

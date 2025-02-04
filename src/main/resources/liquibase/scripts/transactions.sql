@@ -33,7 +33,7 @@ CREATE TABLE user_transactions (
     user_id UUID NOT NULL,
     product_id UUID NOT NULL,
     transaction_date TIMESTAMP NOT NULL,
-    amount DOUBLE,
+    amount DOUBLE PRECISION,
     type VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (product_id) REFERENCES products (id)

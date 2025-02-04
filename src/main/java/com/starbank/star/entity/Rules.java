@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Rules {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "product_name", nullable = false)
@@ -21,9 +21,19 @@ public class Rules {
     @Column(name = "product_text", nullable = false)
     private String productText;
 
-    @ElementCollection
-    @CollectionTable(name = "rule_queries", joinColumns = @JoinColumn(name = "rule_id"))
+    @OneToMany(cascade = CascadeType.ALL) // Используем OneToMany для связи с RuleQuery
+    @JoinColumn(name = "rule_id")
     private List<RuleQuery> ruleQueries;
+
+    public Rules(UUID id, String productName, String productId, String productText, List<RuleQuery> ruleQueries) {
+        this.id = id;
+        this.productName = productName;
+        this.productId = productId;
+        this.productText = productText;
+        this.ruleQueries = ruleQueries;
+    }
+
+    public Rules() {}
 
     public UUID getId() {
         return id;
